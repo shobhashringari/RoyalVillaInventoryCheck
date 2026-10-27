@@ -314,7 +314,15 @@ function sendToWhatsApp() {
     return `${index + 1}. ${description} (${ratingSummary}; Complete: ${completed}, ${media})`;
   });
 
-  window.open(`https://wa.me/?text=${encodeURIComponent(lines.join('\n'))}`, '_blank');
+  const text = encodeURIComponent(lines.join('\n'));
+  const waUrl = `whatsapp://send?text=${text}`;
+  const webUrl = `https://wa.me/?text=${text}`;
+
+  if (window.Capacitor?.isNativePlatform?.() || window.Capacitor || window.cordova) {
+    window.location.href = waUrl;
+  } else {
+    window.open(webUrl, '_blank');
+  }
 }
 
 document.addEventListener('DOMContentLoaded', async () => {

@@ -1,0 +1,19 @@
+{
+  "name": "royalvillainventorycheck",
+  "version": "1.0.0",
+  "description": "Royal Villa Inventory and Activity Check App",
+  "main": "script.js",
+  "scripts": {
+    "build:web": "node -e \"const fs=require('fs'); fs.mkdirSync('www', {recursive: true}); fs.copyFileSync('InventoryTracker.html', 'www/index.html'); fs.copyFileSync('InventoryTracker.html', 'www/InventoryTracker.html'); fs.copyFileSync('script.js', 'www/script.js'); fs.copyFileSync('styles.css', 'www/styles.css'); fs.copyFileSync('activities.json', 'www/activities.json');\"",
+    "build": "npm run build:web && npx cap copy android",
+    "build:apk": "npm run build && cd android && .\\gradlew.bat assembleDebug"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@capacitor/android": "6.0.0",
+    "@capacitor/cli": "6.0.0",
+    "@capacitor/core": "6.0.0"
+  }
+}

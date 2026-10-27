@@ -1,0 +1,12 @@
+{
+  "appId": "com.royalvilla.inventorycheck",
+  "appName": "Royal Villa Inventory",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https",
+    "allowNavigation": [
+      "wa.me",
+      "api.whatsapp.com"
+    ]
+  }
+}

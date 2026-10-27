@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Activity Tracker Form</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f9; max-width: 600px; margin: auto; }
+        .item-card { background: white; padding: 15px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .item-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+        .activity-delete { display: inline-grid; place-items: center; flex: 0 0 36px; width: 36px; height: 36px; padding: 7px; color: #b91c1c; background: transparent; border: 1px solid #fecaca; border-radius: 6px; }
+        .activity-delete:hover { color: #fff; background: #dc2626; }
+        .activity-delete svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+        input[type="text"], textarea { width: 100%; padding: 8px; margin-top: 5px; margin-bottom: 10px; box-sizing: border-box; }
+        textarea.activity-desc { display: block; min-height: 3.4em; overflow: hidden; overflow-wrap: anywhere; background: #e5e7eb; color: #111827; border: 2px solid #6b7280; border-radius: 5px; font-family: inherit; font-size: 1.05rem; font-weight: 700; line-height: 1.4; padding: 8px 11px; }
+        .assessment-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 0 0 10px; }
+        .rating-group { display: flex; flex-wrap: wrap; gap: 10px; color: #6b7280; font-size: 0.9rem; }
+        .rating-option { display: inline-flex; align-items: center; gap: 4px; font-weight: 400; list-style: none; cursor: pointer; }
+        .completed-field { display: inline-flex; align-items: center; gap: 4px; margin: 0 0 0 auto; white-space: nowrap; }
+        .complete-control { position: relative; display: inline-flex; }
+        .activity-complete { display: none; }
+        .complete-trigger { width: 68px; padding: 4px 8px; color: #111827; background: #fff; border: 1px solid #6b7280; border-radius: 4px; font: inherit; text-align: left; }
+        .complete-trigger::after { content: ''; float: right; width: 7px; height: 7px; margin: 3px 1px 0 5px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg); }
+        .complete-menu { position: fixed; z-index: 1000; padding: 3px; background: #fff; border: 1px solid #6b7280; border-radius: 5px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); }
+        .complete-menu[hidden] { display: none; }
+        .complete-menu .complete-option { display: block; width: 100%; padding: 8px 10px; color: #111827; background: #fff; border-radius: 3px; font: inherit; text-align: left; }
+        .complete-menu .complete-option:hover, .complete-menu .complete-option[aria-selected="true"] { background: #e5e7eb; }
+        .media-field { display: flex; align-items: center; gap: 10px; }
+        .media-field label { margin: 0; }
+        .media-field .media-trigger { width: auto; padding: 8px 12px; font-size: 14px; }
+        button { background: #25D366; color: white; border: none; padding: 12px 20px; font-size: 16px; border-radius: 5px; cursor: pointer; width: 100%; }
+        #add-activity { background: #f59e0b; margin: 5px 0 10px; }
+        #add-activity:hover { background: #d97706; }
+        .pagination { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 15px 0; }
+        .pagination button { width: auto; background: #007bff; }
+        .pagination button:disabled { background: #9ca3af; cursor: not-allowed; }
+        .pagination span { font-weight: 600; }
+        #load-error { padding: 10px; color: #991b1b; background: #fee2e2; border-radius: 5px; }
+        #form-timestamp { text-align: center; }
+        @media (max-width: 480px) {
+            body { padding: 12px; }
+            .item-card { padding: 10px; }
+            .pagination { flex-wrap: nowrap; gap: 6px; }
+            .pagination button { flex: 0 1 auto; padding: 8px 10px; font-size: 0.8rem; white-space: nowrap; }
+            .pagination span { flex: 0 0 auto; font-size: 0.8rem; white-space: nowrap; }
+            .assessment-row { flex-wrap: nowrap; gap: 4px; }
+            .rating-group { flex-wrap: nowrap; gap: 4px; font-size: 0.75rem; }
+            .rating-option { gap: 2px; white-space: nowrap; }
+            .rating-option input { width: 13px; height: 13px; margin: 0; }
+            .completed-field { flex: 0 0 auto; gap: 2px; font-size: 0.75rem; }
+            .complete-trigger { width: 64px; padding: 2px 4px; font-size: 0.75rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <h2 id="form-heading">Inspection - Royal Villa</h2>
+    <p id="form-timestamp"></p>
+    <p id="load-error" role="alert" hidden></p>
+    <div id="form-container">
+        <!-- Dynamic Line Items will go here -->
+    </div>
+    <button type="button" id="add-activity" hidden>Add Additional Activity / Item</button>
+
+    <nav class="pagination" aria-label="Activity pages">
+        <button type="button" id="previous-page">Previous</button>
+        <span id="page-indicator" aria-live="polite"></span>
+        <button type="button" id="next-page">Next</button>
+    </nav>
+    <button id="send-whatsapp" onclick="sendToWhatsApp()" hidden>Send via WhatsApp 🚀</button>
+
+    <script src="script.js?v=7"></script>
+</body>
+</html>
